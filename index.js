@@ -1,6 +1,10 @@
 var express = require('express')
+var path = require('path')
 var app = express()
 var http = require('http').Server(app)
+
+// route
+require('./route/account')(app, path)
 
 app.use(express.static(__dirname + '/www'))
 

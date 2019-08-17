@@ -1,7 +1,42 @@
-<p>Login Form</p>
+<!DOCTYPE html>
+<head>
+    <title>WORKSHOP 3</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+</head>
+<body>
+    <p>Login Form</p>
 
-<form action="http://localhost:3000/login">
-    ID : <input type="text" name="id" />
-    Password : <input type="password" name="password" />
-    <input type="submit" value="Login" />
-</form>
+    <div id="errormsg" class="hidemessage">User credentials do not match</div>
+    <br>
+    ID : <input type="text" name="id" id="m_id" />
+    Password : <input type="password" name="password" id="m_pwd" />
+    <button id="submit">Submit</button>
+</body>
+<script>
+    $("#submit").click(function(){
+        var myObj = { 
+            "id": $("#m_id").val(),
+            "pwd": $("#m_pwd").val()
+        }; 
+
+        var data = JSON.stringify(myObj);
+
+        $.ajax({  
+            type: "POST",  
+            url: "http://localhost:3000/login",  
+            dataType: "json",
+            contentType: "application/json",
+            processData: false,
+            data: data,  
+            success: function(res) {  
+                console.log(res)
+
+                if (res.ok == false){
+                    $("#errormsg").attr('class', 'showmessage');
+                }
+            }  
+        })  
+    })
+</script>
+</html>
